@@ -5,5 +5,6 @@ export default {
   white: "#eee",
   medium: "#6e6969",
   light: "#d8d8d8",
+  dark: "#0c0c0c",
   danger: "#ff5252",
 };
