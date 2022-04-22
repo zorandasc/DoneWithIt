@@ -4,7 +4,7 @@ import { useFormikContext } from "formik";
 import AppTextInput from "../AppTextInput";
 import ErrorMessage from "./ErrorMessage";
 
-function AppFormFIeld({ name, ...otherProps }) {
+function AppFormFIeld({ name, width, ...otherProps }) {
   const { handleChange, errors, setFieldTouched, touched } = useFormikContext();
   return (
     <>
@@ -12,6 +12,7 @@ function AppFormFIeld({ name, ...otherProps }) {
         {...otherProps}
         onBlur={() => setFieldTouched(name)}
         onChangeText={handleChange(name)}
+        width={width}
       ></AppTextInput>
       <ErrorMessage error={errors[name]} visible={touched[name]}></ErrorMessage>
     </>

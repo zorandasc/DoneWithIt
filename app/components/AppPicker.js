@@ -13,13 +13,23 @@ import defaultStyles from "../config/styles";
 import AppText from "./AppText";
 import Screen from "./Screen";
 import PickerItem from "./PickerItem";
+import AppButton from "./AppButton";
 
-function AppPicker({ items, selectedItem, onSelectItem, icon, placeholder }) {
+function AppPicker({
+  items,
+  selectedItem,
+  onSelectItem,
+  numberOfColumns = 1,
+  icon,
+  placeholder,
+  PickerItemComponent = PickerItem,
+  width = "100%",
+}) {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
-        <View style={styles.container}>
+        <View style={[styles.container, { width: width }]}>
           {icon && (
             <MaterialCommunityIcons
               name={icon}
@@ -43,18 +53,23 @@ function AppPicker({ items, selectedItem, onSelectItem, icon, placeholder }) {
       </TouchableWithoutFeedback>
       <Modal visible={modalVisible} animationType="slide">
         <Screen>
-          <Button title="Close" onPress={() => setModalVisible(false)}></Button>
+          <AppButton
+            title="Close"
+            onPress={() => setModalVisible(false)}
+            color="secondary"
+          ></AppButton>
           <FlatList
             data={items}
+            numColumns={numberOfColumns}
             keyExtractor={(item) => item.value.toString()}
             renderItem={({ item }) => (
-              <PickerItem
-                label={item.label}
+              <PickerItemComponent
+                item={item}
                 onPress={() => {
                   onSelectItem(item);
                   setModalVisible(false);
                 }}
-              ></PickerItem>
+              ></PickerItemComponent>
             )}
           ></FlatList>
         </Screen>
@@ -68,7 +83,6 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.light,
     borderRadius: 25,
     flexDirection: "row",
-    width: "100%",
     padding: 15,
     marginVertical: 10,
     alignItems: "center",
@@ -79,10 +93,10 @@ const styles = StyleSheet.create({
   text: {
     flex: 1,
   },
-  placeholder:{
+  placeholder: {
     flex: 1,
-    color: defaultStyles.colors.medium
-  }
+    color: defaultStyles.colors.medium,
+  },
 });
 
 export default AppPicker;
