@@ -19,19 +19,18 @@ import WelcomeScreen from "./app/screens/WelcomeScreen";
 import * as ImagePicker from "expo-image-picker";
 import ImageInput from "./app/components/ImageInput";
 import ImageInputList from "./app/components/ImageInputList";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import AuthNavigator from "./app/navigation/AuthNavigator";
+import navigationTheme from "./app/navigation/navigationTheme";
+import AppNavigator from "./app/navigation/AppNavigator";
+
+const Stack = createStackNavigator();
 
 export default function App() {
-  const [imageUris, setImageUris] = useState([]);
-
-  const handleAdd = (uri) => {
-    setImageUris([...imageUris, uri]);
-  };
-
-  const handleRemove = (uri) => {
-    setImageUris(imageUris.filter((u) => u !== uri));
-  };
-
-  return <ListingEditScreen></ListingEditScreen>;
+  return (
+    <NavigationContainer theme={navigationTheme}>
+      <AppNavigator></AppNavigator>
+    </NavigationContainer>
+  );
 }
-
-const styles = StyleSheet.create({});
