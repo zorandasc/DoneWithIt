@@ -1,9 +1,11 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { HeaderBackButton } from "@react-navigation/elements";
 
 import ListingsScreen from "../screens/ListingsScreen";
 import ListingDetailsScreen from "../screens/ListingDetailsScreen";
 import routes from "./routes";
+import colors from "../config/colors";
 
 const Stack = createStackNavigator();
 
@@ -18,7 +20,12 @@ function FeedNavigator() {
       <Stack.Screen
         name={routes.LISTING_DETAILS}
         component={ListingDetailsScreen}
-        options={{ title: "All items" }}
+        options={({ navigation }) => ({
+          title: "",
+          headerLeft: (props) => (
+            <HeaderBackButton {...props} tintColor={colors.primary}/>
+          ),
+        })}
       ></Stack.Screen>
     </Stack.Navigator>
   );
