@@ -9,7 +9,10 @@ function ListingDetailsScreen({ route }) {
   const listing = route.params;
   return (
     <View>
-      <Image style={styles.image} source={{uri:listing.images[0].url}}></Image>
+      <Image
+        style={styles.image}
+        source={{ uri: listing.images[0].url }}
+      ></Image>
       <View style={styles.detailsContainer}>
         <AppText style={styles.title}>{listing.title}</AppText>
         <AppText style={styles.price}>${listing.price}</AppText>
