@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+//nas custom hook for caling api
+//envelop with information about
+//error object and loading spinner
 export default useApi = (apiFunc) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
@@ -10,12 +13,10 @@ export default useApi = (apiFunc) => {
     const response = await apiFunc(...args);
     setLoading(false);
 
-    if (!response.ok) {
-      return setError(true);
-    }
-
-    setError(false);
+    setError(!response.ok);
     setData(response.data);
+
+    return response;
   };
 
   return { request, data, error, loading };

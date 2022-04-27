@@ -23,27 +23,30 @@ function ListingsScreen({ navigation }) {
   }, []);
 
   return (
-    <Screen>
-      {error && (
-        <>
-          <AppText>Could not retrive listings ...?</AppText>
-          <AppButton title="Retry" onPress={loadListings}></AppButton>
-        </>
-      )}
+    <>
       <ActivityIndicator visible={loading}></ActivityIndicator>
-      <FlatList
-        data={listings}
-        keyExtractor={(list) => list.id.toString()}
-        renderItem={({ item }) => (
-          <Card
-            title={item.title}
-            subTitle={"$" + item.price}
-            imageUrl={item.images[0].url}
-            onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
-          ></Card>
+      <Screen>
+        {error && (
+          <>
+            <AppText>Could not retrive listings ...?</AppText>
+            <AppButton title="Retry" onPress={loadListings}></AppButton>
+          </>
         )}
-      ></FlatList>
-    </Screen>
+
+        <FlatList
+          data={listings}
+          keyExtractor={(list) => list.id.toString()}
+          renderItem={({ item }) => (
+            <Card
+              title={item.title}
+              subTitle={"$" + item.price}
+              imageUrl={item.images[0].url}
+              onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
+            ></Card>
+          )}
+        ></FlatList>
+      </Screen>
+    </>
   );
 }
 const styles = StyleSheet.create({});

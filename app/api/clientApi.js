@@ -1,8 +1,15 @@
 import { create } from "apisauce";
+import authStorage from "../auth/authStorage";
 import cache from "../utility/cache";
 
 const apiClient = create({
-  baseURL: "http://192.168.100.6:9000/api",
+  baseURL: "http://192.168.100.4:9000/api",
+});
+
+apiClient.addAsyncRequestTransform(async (request) => {
+  const authToken = await authStorage.getToken();
+  if (!authToken) return;
+  request.headers["x-auth-token"] = authToken;
 });
 
 //rewritiujemo orginali get methodu od appsouca
