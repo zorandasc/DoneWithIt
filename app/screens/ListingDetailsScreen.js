@@ -8,7 +8,7 @@ import colors from "../config/colors";
 function ListingDetailsScreen({ route }) {
   const listing = route.params;
   return (
-    <View>
+    <View style={styles.container}>
       <Image
         style={styles.image}
         source={{ uri: listing.images[0].url }}
@@ -28,6 +28,10 @@ function ListingDetailsScreen({ route }) {
   );
 }
 const styles = StyleSheet.create({
+  container:{
+    backgroundColor:colors.light,
+    flex: 1
+  },
   image: {
     width: "100%",
     height: 300,
@@ -46,7 +50,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   userContainer: {
-    marginVertical: 50,
+    marginVertical: 10,
   },
 });
 

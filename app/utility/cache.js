@@ -4,6 +4,8 @@ import moment from "moment";
 const prefix = "cache";
 const expiryInMinutes = 5;
 
+//async storage for offline storing of listings for examples
+
 const isExpired = (item) => {
   const now = moment(Date.now());
   const storedTime = moment(item.timeStamp);
@@ -25,9 +27,9 @@ const store = async (key, value) => {
 const get = async (key) => {
   try {
     const value = await AsyncStorage.getItem(prefix + key);
-    
+
     if (!value) return null;
-    
+
     const item = JSON.parse(value);
 
     if (isExpired(item)) {
