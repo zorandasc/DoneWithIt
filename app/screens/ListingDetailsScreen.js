@@ -1,11 +1,13 @@
 import React from "react";
 import { StyleSheet, View, Image } from "react-native";
+import AppButton from "../components/AppButton";
 
 import AppText from "../components/AppText";
 import { ListItem } from "../components/lists";
 import colors from "../config/colors";
+import routes from "../navigation/routes";
 
-function ListingDetailsScreen({ route }) {
+function ListingDetailsScreen({ route, navigation }) {
   const listing = route.params;
   return (
     <View style={styles.container}>
@@ -23,14 +25,18 @@ function ListingDetailsScreen({ route }) {
             image={require("../assets/mosh.jpg")}
           ></ListItem>
         </View>
+        <AppButton
+          onPress={() => navigation.navigate(routes.CONTACT_SELLER)}
+          title="Contact Seller"
+        ></AppButton>
       </View>
     </View>
   );
 }
 const styles = StyleSheet.create({
-  container:{
-    backgroundColor:colors.light,
-    flex: 1
+  container: {
+    backgroundColor: colors.light,
+    flex: 1,
   },
   image: {
     width: "100%",
