@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import AccountScreen from "../screens/AccountScreeen";
 import MessagesScreen from "../screens/MessagesScreen";
 import routes from "./routes";
+import ViewImageScreen from "../screens/ViewImageScreen";
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,11 @@ function AccountNavigator() {
       <Stack.Screen
         name={routes.MESSAGES}
         component={MessagesScreen}
+      ></Stack.Screen>
+      <Stack.Screen
+        name={routes.IMAGE_VIEW}
+        component={ViewImageScreen}
+        options={{ headerShown: false }}
       ></Stack.Screen>
     </Stack.Navigator>
   );
