@@ -2,8 +2,17 @@ import { useEffect, useRef } from "react";
 import * as Notifications from "expo-notifications";
 import expoPushTokens from "../api/expoPushTokens";
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 export default useNotifications = (notificationHandler) => {
   const notificationListener = useRef();
+  const responseListener = useRef();
 
   useEffect(() => {
     registerForPushNotifications();
@@ -11,10 +20,17 @@ export default useNotifications = (notificationHandler) => {
     //received while the app is foregrounded
     notificationListener.current =
       Notifications.addNotificationReceivedListener(notificationHandler);
+
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log(response);
+      });
+
     return () => {
       Notifications.removeNotificationSubscription(
         notificationListener.current
       );
+      Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
 
@@ -41,3 +57,15 @@ export default useNotifications = (notificationHandler) => {
     }
   };
 };
+
+//for local push notification
+export async function schedulePushNotification() {
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Awesome 📬",
+      body: "Your message was sent to selller",
+      data: { data: new Date().toLocaleDateString() },
+    },
+    trigger: { seconds: 1 },
+  });
+}

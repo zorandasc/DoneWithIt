@@ -1,9 +1,10 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, Keyboard, Alert } from "react-native";
 import * as Yup from "yup";
-import colors from "../config/colors";
 
 import { AppForm, AppFormFIeld, SubmitButton } from "./forms";
+import messagesApi from "../api/messages";
+import { schedulePushNotification } from "../hooks/useNotification";
 
 const validationSchema = Yup.object().shape({
   message: Yup.string().label("Message"),
@@ -11,7 +12,24 @@ const validationSchema = Yup.object().shape({
 
 function ContactSellerForm({ listing }) {
   const handleSubmit = async ({ message }, { resetForm }) => {
-    console.log(message);
+    Keyboard.dismiss();
+
+    //poslace na nas node.js na kome postiji api "/messages"
+    //u okviru koje se putem exponotification-sdk, instaliranog
+    //na node.je salje poruka expo serveru, a on gas salje notification
+    //useru, ako korisnik salje samom sebi dobive dve notifeik
+    //jednu lokalnu i jednu remote
+    const result = await messagesApi.send(message, listing.id);
+
+    if (!result.ok) {
+      console.log("Error", result);
+      return Alert.alert("Error", "Could not send fuckin message");
+    }
+
+    //show local notificaton for sender sending messess
+    schedulePushNotification();
+
+    resetForm();
   };
   return (
     <AppForm

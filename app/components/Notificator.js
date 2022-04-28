@@ -1,29 +1,38 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import Constants from "expo-constants";
 
 import colors from "../config/colors";
 import AppText from "./AppText";
 
 function Notificator({ notification, setNotification }) {
+  //AKO IM TITLE ONDA JE LOKALNI NOTIFICATION
+  //AKO NEMA ONDA JE REMOTE I TITLEW JE NEW MESSAGAE
   return (
     <TouchableWithoutFeedback onPress={setNotification}>
-      <View style={styles.container}>
-        <AppText style={styles.text}>
-          Title: {notification && notification.request.content.title}
-        </AppText>
-        <AppText style={styles.text}>
-          Body: {notification && notification.request.content.body}
-        </AppText>
-        <AppText style={styles.text}>
-          {notification && JSON.stringify(notification.request.content.data)}
-        </AppText>
-      </View>
+      {notification.request.content.title ? (
+        <View style={styles.container}>
+          <AppText style={styles.text}>
+            {notification.request.content.title}
+          </AppText>
+          <AppText style={styles.text}>
+            {notification.request.content.body}
+          </AppText>
+          <AppText style={styles.text}>
+            {notification.request.content.data.data}
+          </AppText>
+        </View>
+      ) : (
+        <View style={styles.container}>
+          <AppText style={styles.text}>New Message:</AppText>
+          <AppText style={styles.text}>
+            {notification.request.content.body}
+          </AppText>
+          <AppText style={styles.text}>
+            {new Date().toLocaleDateString()}
+          </AppText>
+        </View>
+      )}
     </TouchableWithoutFeedback>
   );
 }
@@ -44,7 +53,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
   text: {
-    color: colors.white,
+    color: colors.dark,
   },
 });
 

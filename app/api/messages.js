@@ -1,7 +1,7 @@
 import client from "./clientApi";
 
 const send = (message, listingId) => {
-  client.post("/messages", {
+  return client.post("/messages", {
     message,
     listingId,
   });
