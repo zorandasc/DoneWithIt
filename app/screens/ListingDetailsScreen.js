@@ -17,7 +17,7 @@ function ListingDetailsScreen({ route }) {
   return (
     <KeyboardAvoidingView
       behavior="position"
-      keyboardVerticalOffset={Platform.OS === "iso" ? 0 : 150}
+      keyboardVerticalOffset={Platform.OS === "iso" ? 0 : 40}
       style={styles.container}
     >
       <Image
@@ -43,10 +43,12 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.light,
     flex: 1,
+    
   },
   image: {
     width: "100%",
     height: 300,
+    marginBottom:10
   },
   detailsContainer: {
     padding: 20,

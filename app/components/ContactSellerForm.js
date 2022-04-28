@@ -26,7 +26,7 @@ function ContactSellerForm({ listing }) {
         placeholder="Message"
         maxLength={255}
         multiline
-        numberOfLines={1}
+        numberOfLines={3}
       ></AppFormFIeld>
       <SubmitButton title="Send"></SubmitButton>
     </AppForm>

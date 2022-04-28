@@ -20,15 +20,7 @@ function FeedNavigator() {
       <Stack.Screen
         name={routes.LISTING_DETAILS}
         component={ListingDetailsScreen}
-        options={({ navigation }) => ({
-          title: "",
-          headerStyle: {
-            backgroundColor: colors.light,
-          },
-          headerLeft: (props) => (
-            <HeaderBackButton {...props} tintColor={colors.primary} />
-          ),
-        })}
+        options={{ headerShown: false }}
       ></Stack.Screen>
     </Stack.Navigator>
   );

@@ -29,7 +29,7 @@ function AppNavigator() {
       )}
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen
-          name={routes.FEED}
+          name="DoneWithIt"
           component={FeedNavigator}
           options={{
             tabBarIcon: ({ color, size }) => (
