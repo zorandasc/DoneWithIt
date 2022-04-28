@@ -1,16 +1,25 @@
 import React from "react";
-import { StyleSheet, View, Image } from "react-native";
-import AppButton from "../components/AppButton";
+import {
+  StyleSheet,
+  View,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 
 import AppText from "../components/AppText";
 import { ListItem } from "../components/lists";
 import colors from "../config/colors";
-import routes from "../navigation/routes";
+import ContactSellerForm from "./ContactSellerForm";
 
-function ListingDetailsScreen({ route, navigation }) {
+function ListingDetailsScreen({ route }) {
   const listing = route.params;
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior="position"
+      keyboardVerticalOffset={Platform.OS === "iso" ? 0 : 150}
+      style={styles.container}
+    >
       <Image
         style={styles.image}
         source={{ uri: listing.images[0].url }}
@@ -25,12 +34,9 @@ function ListingDetailsScreen({ route, navigation }) {
             image={require("../assets/mosh.jpg")}
           ></ListItem>
         </View>
-        <AppButton
-          onPress={() => navigation.navigate(routes.CONTACT_SELLER)}
-          title="Contact Seller"
-        ></AppButton>
+        <ContactSellerForm></ContactSellerForm>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
@@ -56,7 +62,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   userContainer: {
-    marginVertical: 10,
+    marginVertical: 1,
   },
 });
 
