@@ -3,26 +3,26 @@ import { View, StyleSheet } from "react-native";
 import * as Yup from "yup";
 import colors from "../config/colors";
 
-import { AppForm, AppFormFIeld, SubmitButton } from "../components/forms";
+import { AppForm, AppFormFIeld, SubmitButton } from "./forms";
 
 const validationSchema = Yup.object().shape({
-  description: Yup.string().label("Description"),
+  message: Yup.string().label("Message"),
 });
 
-function ContactSellerForm({ navigation }) {
-  const handleSubmit = () => {
-    console.log("contact");
+function ContactSellerForm({ listing }) {
+  const handleSubmit = async ({ message }, { resetForm }) => {
+    console.log(message);
   };
   return (
     <AppForm
       initialValues={{
-        description: "",
+        message: "",
       }}
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >
       <AppFormFIeld
-        name="description"
+        name="message"
         placeholder="Message"
         maxLength={255}
         multiline

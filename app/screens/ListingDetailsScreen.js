@@ -10,7 +10,7 @@ import {
 import AppText from "../components/AppText";
 import { ListItem } from "../components/lists";
 import colors from "../config/colors";
-import ContactSellerForm from "./ContactSellerForm";
+import ContactSellerForm from "../components/ContactSellerForm";
 
 function ListingDetailsScreen({ route }) {
   const listing = route.params;
@@ -34,7 +34,7 @@ function ListingDetailsScreen({ route }) {
             image={require("../assets/mosh.jpg")}
           ></ListItem>
         </View>
-        <ContactSellerForm></ContactSellerForm>
+        <ContactSellerForm listing={listing}></ContactSellerForm>
       </View>
     </KeyboardAvoidingView>
   );
