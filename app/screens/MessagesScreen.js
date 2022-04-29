@@ -7,30 +7,17 @@ import {
   ListItemSeparator,
 } from "../components/lists";
 import Screen from "../components/Screen";
-
-const initialMessages = [
-  {
-    id: 1,
-    title: "T1",
-    description: "D1",
-    image: require("../assets/mosh.jpg"),
-  },
-  {
-    id: 2,
-    title: "T2",
-    description: "D2",
-    image: require("../assets/mosh.jpg"),
-  },
-];
+import useMessagesContext from "../auth/useMessagesContext";
 
 function MessagesScreen(props) {
-  const [messages, setMessages] = useState(initialMessages);
+  const { messages, deleteMessage, addMessage } = useMessagesContext();
   const [refreshing, setRefreshing] = useState(false);
 
+  /*
   const handleDelete = (message) => {
     setMessages(messages.filter((m) => m.id != message.id));
   };
-
+*/
   return (
     <Screen>
       <FlatList
@@ -44,7 +31,7 @@ function MessagesScreen(props) {
             onPress={() => console.log("Item presica", item)}
             renderRightActions={() => (
               <ListItemDeleteAction
-                onPress={() => handleDelete(item)}
+                onPress={() => deleteMessage(item)}
               ></ListItemDeleteAction>
             )}
           ></ListItem>
@@ -52,14 +39,12 @@ function MessagesScreen(props) {
         ItemSeparatorComponent={ListItemSeparator}
         refreshing={refreshing}
         onRefresh={() => {
-          setMessages([
-            {
-              id: 3,
-              title: "T3",
-              description: "D3",
-              image: require("../assets/mosh.jpg"),
-            },
-          ]);
+          addMessage({
+            id: messages.length + 1,
+            title: "T3",
+            description: "D3",
+            image: require("../assets/mosh.jpg"),
+          });
         }}
       ></FlatList>
     </Screen>

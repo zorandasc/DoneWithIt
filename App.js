@@ -9,8 +9,26 @@ import AuthNavigator from "./app/navigation/AuthNavigator";
 import AuthContext from "./app/auth/authContext";
 import authStorage from "./app/auth/authStorage";
 
+const initialMessages = [
+  {
+    id: 1,
+    title: "T1",
+    description: "D1",
+    image: require("./app/assets/mosh.jpg"),
+  },
+  {
+    id: 2,
+    title: "T2",
+    description: "D2",
+    image: require("./app/assets/mosh.jpg"),
+  },
+];
+
 export default function App() {
+  //definisemo nas context
   const [user, setUser] = useState();
+  const [messages, setMessages] = useState(initialMessages);
+
   //for handling the flickering of scren on reload
   const [isReady, setIsReady] = useState(false);
 
@@ -37,7 +55,7 @@ export default function App() {
   }
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser, messages, setMessages }}>
       <OfflineNotice></OfflineNotice>
       <NavigationContainer theme={navigationTheme}>
         {user ? <AppNavigator></AppNavigator> : <AuthNavigator></AuthNavigator>}

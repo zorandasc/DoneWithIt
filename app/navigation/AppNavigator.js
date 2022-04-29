@@ -9,14 +9,34 @@ import NewListingButton from "./NewListingButton";
 import routes from "./routes";
 import Notificator from "../components/Notificator";
 import useNotification from "../hooks/useNotification";
+import useMessagesContext from "../auth/useMessagesContext";
 
 const Tab = createBottomTabNavigator();
 
+const convertNotifToMessage = (notification) => {
+  //pohrani samo puhs notifikacije
+  if (notification && notification.request.trigger.type === "push") {
+    return {
+      title: notification.request.trigger.remoteMessage.from,
+      description: notification.request.content.body,
+      image: require("../assets/mosh.jpg"),
+    };
+  }
+  return null;
+};
+
 function AppNavigator() {
+  //nas custom message hook context
+  const { messages, addMessage } = useMessagesContext();
   const [notification, setNotification] = useState(false);
 
+  //nas custom notification hook
   useNotification((notification) => {
-    setNotification(notification);
+    setNotification(notification); //prikazi notifikaciju
+
+    const newMessage = convertNotifToMessage(notification);
+
+    newMessage && addMessage({ id: messages.length + 1, ...newMessage }); //add to message quee
   });
 
   return (
