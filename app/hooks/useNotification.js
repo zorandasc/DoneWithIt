@@ -16,14 +16,13 @@ export default useNotifications = (notificationHandler) => {
 
   useEffect(() => {
     registerForPushNotifications();
-    // This listener is fired whenever a notification is
-    //received while the app is foregrounded
+
     notificationListener.current =
       Notifications.addNotificationReceivedListener(notificationHandler);
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
+        console.log("RESPONSONJA", response);
       });
 
     return () => {
@@ -58,13 +57,12 @@ export default useNotifications = (notificationHandler) => {
   };
 };
 
-//for local push notification
-export async function schedulePushNotification() {
+//localc push notification
+export async function schedulePushNotification(title, body) {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: "Awesome 📬",
-      body: "Your message was sent to selller",
-      data: { data: new Date().toLocaleDateString() },
+      title: title,
+      body: body,
     },
     trigger: { seconds: 1 },
   });

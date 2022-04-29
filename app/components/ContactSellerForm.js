@@ -27,7 +27,7 @@ function ContactSellerForm({ listing }) {
     }
 
     //show local notificaton for sender sending messess
-    schedulePushNotification();
+    await schedulePushNotification("Awesome", "Your message was sent to selller");
 
     resetForm();
   };

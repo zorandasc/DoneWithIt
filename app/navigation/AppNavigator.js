@@ -24,9 +24,10 @@ function AppNavigator() {
       {notification && (
         <Notificator
           notification={notification}
-          setNotification={() => setNotification(false)}
+          setNotification={setNotification}
         ></Notificator>
       )}
+
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen
           name="DoneWithIt"
