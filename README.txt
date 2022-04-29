@@ -20,3 +20,5 @@ Change IP addresd in: config/development.jsoon, with IP on your local device.
   "port": 9000
 }
 
+PUBLISHED TO 
+https://expo.dev/@zorand666/DoneWithIt
