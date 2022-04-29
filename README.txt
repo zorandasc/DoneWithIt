@@ -4,10 +4,8 @@ YARN ADD
 
 expo start
 
- Change IP addresd in api/clientApi.js, in line with backend:
-const apiClient = create({
-  baseURL: "http://192.168.100.4:9000/api",
-});
+ Change IP addresd in api/config/settings.js, in line with backend:
+apiUrl: "http://192.168.100.4:9000/api",
 
 
 ON BACKEND: NODE-EXPRESS
